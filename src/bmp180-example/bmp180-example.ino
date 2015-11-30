@@ -132,7 +132,9 @@ void loop()
 
 
 /*
- * import processing.serial.*;
+//the example code for processing to graph a println
+// in 1.6.5 for graph doesnt work. this those i found it in the arduino.cc forums
+ import processing.serial.*;
 
 Serial myPort;        // The serial port
 int xPos = 1;         // horizontal position of the graph
@@ -172,5 +174,4 @@ void serialEvent (Serial myPort) {
     newVal = true;
   }
 }
-*/
  */
