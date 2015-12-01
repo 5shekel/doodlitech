@@ -86,38 +86,10 @@ void loop()
         if (status != 0)
         {
           // Print out the measurement:
-          //Serial.print("absolute pressure: ");
-          Serial.println((P-1000)*100., 2);
+          Serial.println(P, 2);
           //Serial.print(" mb, ");
-        //  Serial.print(P * 0.0295333727, 2);
+          //Serial.println(P * 0.0295333727, 2);
          // Serial.println(" inHg");
-
-          /*
-            // The pressure sensor returns abolute pressure, which varies with altitude.
-            // To remove the effects of altitude, use the sealevel function and your current altitude.
-            // This number is commonly used in weather reports.
-            // Parameters: P = absolute pressure in mb, ALTITUDE = current altitude in m.
-            // Result: p0 = sea-level compensated pressure in mb
-
-            p0 = pressure.sealevel(P, ALTITUDE); // we're at 1655 meters (Boulder, CO)
-            Serial.print("relative (sea-level) pressure: ");
-            Serial.print(p0, 2);
-            Serial.print(" mb, ");
-            Serial.print(p0 * 0.0295333727, 2);
-            Serial.println(" inHg");
-
-            // On the other hand, if you want to determine your altitude from the pressure reading,
-            // use the altitude function along with a baseline pressure (sea-level or other).
-            // Parameters: P = absolute pressure in mb, p0 = baseline pressure in mb.
-            // Result: a = altitude in m.
-
-            a = pressure.altitude(P, p0);
-            Serial.print("computed altitude: ");
-            Serial.print(a, 0);
-            Serial.print(" meters, ");
-            Serial.print(a * 3.28084, 0);
-            Serial.println(" feet");
-          */
         }
         else Serial.println("error retrieving pressure measurement\n");
       }
@@ -170,7 +142,7 @@ void serialEvent (Serial myPort) {
   if (inString != null) {
     inString = trim(inString);
     fValue = float(inString);
-    fValue = map(fValue, 1500, 2000, 0, height);
+    if (fValue>0) fValue = map(fValue, 1500, 2000, 0, height);
     newVal = true;
   }
 }
