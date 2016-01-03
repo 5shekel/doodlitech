@@ -11,26 +11,10 @@ SFE_BMP180 pressure;
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("REBOOT");
+  Serial.begin(57600);
   if (pressure.begin())
     Serial.println("BMP180 init success");
-  else
-  {
-    // If you want sea-level-compensated pressure, as used in weather reports,
-    // you will need to know the altitude at which your measurements are taken.
-    // We're using a constant called ALTITUDE in this sketch:
 
-    Serial.println();
-    Serial.print("provided altitude: ");
-    Serial.print(ALTITUDE, 0);
-    Serial.print(" meters, ");
-    Serial.print(ALTITUDE * 3.28084, 0);
-    Serial.println(" feet");
-
-    Serial.println("BMP180 init fail\n\n");
-    while (1); // Pause forever.
-  }
 }
 
 void loop()
@@ -86,7 +70,7 @@ void loop()
         if (status != 0)
         {
           // Print out the measurement:
-          Serial.println(P, 2);
+          Serial.print(millis()); Serial.print(" "); Serial.println(P-1000, 4);
           //Serial.print(" mb, ");
           //Serial.println(P * 0.0295333727, 2);
          // Serial.println(" inHg");
@@ -99,7 +83,7 @@ void loop()
   }
   else Serial.println("error starting temperature measurement\n");
 
-  delay(5);  // Pause for 5 seconds.
+  delay(2);  // Pause for 5 seconds.
 }
 
 
