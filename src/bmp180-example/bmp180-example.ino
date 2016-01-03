@@ -1,6 +1,6 @@
 //based on https://github.com/telavivmakers/BMP180_Breakout_Arduino_Library/tree/master/examples/SFE_BMP180_example
 
-#include <SFE_BMP180.h>
+#include "SFE_BMP180.h"
 #include <Wire.h>
 
 // You will need to create an SFE_BMP180 object, here called "pressure":
@@ -70,7 +70,7 @@ void loop()
       // If request is successful, the number of ms to wait is returned.
       // If request is unsuccessful, 0 is returned.
 
-      status = pressure.startPressure(3);
+      status = pressure.startPressure(0);
       if (status != 0)
       {
         // Wait for the measurement to complete:
@@ -99,7 +99,7 @@ void loop()
   }
   else Serial.println("error starting temperature measurement\n");
 
-  delay(100);  // Pause for 5 seconds.
+  delay(5);  // Pause for 5 seconds.
 }
 
 
