@@ -17,17 +17,6 @@ void setup()
     Serial.println("BMP180 init success");
   else
   {
-    // If you want sea-level-compensated pressure, as used in weather reports,
-    // you will need to know the altitude at which your measurements are taken.
-    // We're using a constant called ALTITUDE in this sketch:
-
-    Serial.println();
-    Serial.print("provided altitude: ");
-    Serial.print(ALTITUDE, 0);
-    Serial.print(" meters, ");
-    Serial.print(ALTITUDE * 3.28084, 0);
-    Serial.println(" feet");
-
     Serial.println("BMP180 init fail\n\n");
     while (1); // Pause forever.
   }
@@ -37,9 +26,6 @@ void loop()
 {
   char status;
   double T, P, p0, a;
-
-  // If you want to measure altitude, and not pressure, you will instead need
-  // to provide a known baseline pressure. This is shown at the end of the sketch.
 
   // You must first get a temperature measurement to perform a pressure reading.
 
@@ -70,7 +56,7 @@ void loop()
       // If request is successful, the number of ms to wait is returned.
       // If request is unsuccessful, 0 is returned.
 
-      status = pressure.startPressure(3);
+      status = pressure.startPressure(0);
       if (status != 0)
       {
         // Wait for the measurement to complete:
