@@ -10,6 +10,7 @@ boolean newVal = false;
 
 float minPressure = 9999;
 float maxPressure = 0;
+boolean erase;
 
 void setup () {
   size(600, 400);
@@ -26,9 +27,11 @@ void setup () {
 void draw () {
   if (newVal) {
     line(xPos, height, xPos, height - fValue);
-    if (++xPos >= width) {
+    if (erase || ++xPos >= width) {
       xPos = 0;
-      background(0);
+      background(40);
+      println("min="+minPressure+ " max="+maxPressure+" delta="+ (maxPressure - minPressure));
+      erase=false;
     }
     newVal = false;
   }
@@ -41,13 +44,13 @@ void serialEvent (Serial myPort) {
     fValue = float(inString);
     //println("val= "+fValue);  
     if (fValue>0) { //to deal with that Nan not  number error
+    
       if (fValue < minPressure) {
         minPressure = fValue;
-        println("min="+minPressure+ " max="+maxPressure+" delta="+ (maxPressure - minPressure));
-      }
-      if (fValue > maxPressure) {
+        erase = true;
+      }else if (fValue > maxPressure) {
         maxPressure = fValue;
-        println("min="+minPressure+ " max="+maxPressure+" delta="+ (maxPressure - minPressure));
+        erase = true;
       }
       fValue = map(fValue, minPressure, maxPressure, 0, height);
     }
